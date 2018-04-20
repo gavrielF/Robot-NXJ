@@ -1,5 +1,6 @@
 package com.Robot;
-
+import java.io.*;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,21 +42,43 @@ public class Calibration {
 		LCD.clear();
 		LCD.drawInt(_list.get(0), 0, 0);
 		
+		
+        FileOutputStream fileStream = null;
+        try {
+            fileStream = new FileOutputStream(new File("TestCali.txt"));
+        } catch (Exception e) {
+            LCD.drawString("Can't make a file", 0, 0);
+            System.exit(1);
+        }
 
-		try 
-		{
-			File f = new File(fileName);
-			FileOutputStream fos = new FileOutputStream(f);
-			for (int i = 0; i < _list.size(); i++) 
-			{
-				fos.write(_list.get(i));
-			}
-			fos.close();
-		} 
-		catch (IOException e) 
-		{
-			LCD.drawString(e.getMessage(), 0, 0);
-		}
+        DataOutputStream dataStream = new DataOutputStream(fileStream);
+
+        for(int i=0; i<_list.size(); i++)
+        {
+                try 
+                {
+                   dataStream.writeBytes(String.valueOf(_list.get(i)));
+                   dataStream.writeBytes(" ");                   
+                   fileStream.flush();               
+                } 
+                catch (IOException e) 
+                {
+                    LCD.drawString("Can't write to the file", 0, 1);
+                    System.exit(1);
+                }
+        }
+
+        try
+        {
+            fileStream.close();
+        }
+        catch (IOException e)
+        {
+            LCD.drawString("Can't save the file", 0, 1);
+            System.exit(1);
+        }
+		
+		
 		Button.waitForAnyPress();
 
 	}

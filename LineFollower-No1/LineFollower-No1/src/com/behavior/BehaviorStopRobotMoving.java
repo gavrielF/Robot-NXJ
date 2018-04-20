@@ -1,32 +1,45 @@
 package com.behavior;
 
+import com.Robot.Robot;
+
+import lejos.nxt.Button;
+import lejos.nxt.LCD;
 import lejos.robotics.subsumption.Behavior;
 
 public class BehaviorStopRobotMoving implements Behavior
 {
-	public BehaviorStopRobotMoving()
+	private Robot _roby;
+	
+	public BehaviorStopRobotMoving(Robot roby)
 	{
-		
+		_roby = roby;
 	}
 	
 	@Override
 	public boolean takeControl() 
 	{
-		// TODO Auto-generated method stub
-		return false;
+		if( _roby.getSonarVal() < 20)
+		{
+			_roby.setFinish();
+			return true;
+		}
+		return _roby.isFinish();
 	}
 
 	@Override
 	public void action() 
 	{
-		// TODO Auto-generated method stub
+		LCD.clear();
+		LCD.drawString("bye bye - press enter", 0, 0);
+		Button.waitForAnyPress();
+		System.exit(0);
 		
 	}
 
 	@Override
 	public void suppress() 
 	{
-		// TODO Auto-generated method stub
+		LCD.drawString("take the stop", 3, 0);
 		
 	}
 	//http://thetechnicgear.com/2014/03/howto-create-line-following-robot-using-mindstorms/

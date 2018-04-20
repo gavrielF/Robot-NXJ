@@ -18,14 +18,18 @@ public class BehaviorMoveOnLine implements Behavior
 	@Override
 	public boolean takeControl() 
 	{
-		return _roby.getLightSensorVal() <=40;
+		if(!_roby.isFinish())
+		{
+			return _roby.getLightSensorVal() <=42;
+		}
+		return false;
 	}
 
 	@Override
 	public void action() 
 	{
 		_roby.moveforward();
-        while(_roby.getLightSensorVal() <= 40) Thread.yield(); //action complete when not on line
+        while(_roby.getLightSensorVal() <= 42) Thread.yield(); //action complete when not on line
 		
 	}
 

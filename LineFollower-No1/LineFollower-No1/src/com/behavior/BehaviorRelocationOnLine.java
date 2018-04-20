@@ -1,32 +1,51 @@
 package com.behavior;
 
+import com.Robot.Robot;
+
 import lejos.robotics.subsumption.Behavior;
 
 public class BehaviorRelocationOnLine implements Behavior
 {
-	public BehaviorRelocationOnLine()
+	private Robot _roby;
+	private boolean suppress = false;
+	
+	public BehaviorRelocationOnLine(Robot roby)
 	{
-		
+		_roby = roby;
 	}
 	
 	@Override
 	public boolean takeControl() 
 	{
-		// TODO Auto-generated method stub
+		if(!_roby.isFinish())
+		{
+			return _roby.getLightSensorVal() > 42;
+		}
+		
 		return false;
+				
 	}
 
 	@Override
 	public void action() 
 	{
-		// TODO Auto-generated method stub
+		double sweep = 5;
+		while (!suppress) 
+		{
+			_roby.getPilot().rotate(sweep,true);
+			while (!suppress && _roby.getPilot().isMoving()) Thread.yield();
+			sweep *= -1.5;
+		}
+		_roby.getPilot().stop();
+		suppress = false;
 		
 	}
 
 	@Override
 	public void suppress() 
 	{
-		// TODO Auto-generated method stub
+		suppress = true;
 		
 	}
+	
 }

@@ -9,15 +9,16 @@ public class Start
 
 	public static void main(String[] args) 
 	{		
-		System.out.println("Press to start");
+		System.out.println("Press to start v3");
 		Button.waitForAnyPress();
-		
+		//getPoseProvider
 		try
 		{
-			Robot roby = new Robot();			
-			Calibration c = new Calibration(roby);
-			c.startMonitor();
-			c.printToFile();
+			Robot roby = new Robot();
+			roby.startTrackLine(23);
+//			Calibration c = new Calibration(roby);
+//			c.startMonitor();
+//			c.printToFile();
 		}
 		catch(Exception e)
 		{

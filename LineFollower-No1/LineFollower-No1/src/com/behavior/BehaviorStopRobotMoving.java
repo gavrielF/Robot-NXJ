@@ -29,4 +29,6 @@ public class BehaviorStopRobotMoving implements Behavior
 		// TODO Auto-generated method stub
 		
 	}
+	//http://thetechnicgear.com/2014/03/howto-create-line-following-robot-using-mindstorms/
+	//https://github.com/jvia/nxt/blob/master/src/util/LineFollower.java
 }

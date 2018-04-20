@@ -17,6 +17,7 @@ public class Start
 			Robot roby = new Robot();			
 			Calibration c = new Calibration(roby);
 			c.startMonitor();
+			c.printToFile();
 		}
 		catch(Exception e)
 		{
